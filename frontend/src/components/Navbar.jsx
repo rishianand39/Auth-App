@@ -1,0 +1,37 @@
+import { useContext,  } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/Auth";
+
+
+const Navbar = () => {
+  const {user}=useContext(AuthContext)
+
+const logout=()=>{
+  window.open("http://localhost:5000/auth/logout")
+}
+
+
+  return (
+    <div className="navbar">
+      <span className="logo">    
+        <Link className="link" to="/">Auth App </Link>  
+      </span>
+      {user? (
+        <ul className="list">
+          <li className="listItem">
+            <img
+              src={user.photos[0].value}
+              alt=""
+              className="avatar"
+            />
+          </li>
+          <li className="listItem">{user.displayName}</li>
+          <li  className="listItem" onClick={logout}>Logout</li>
+        </ul>  
+      ):(<Link className="link" to="login">Login</Link>)}
+       
+    </div>
+  );
+};
+
+export default Navbar;
